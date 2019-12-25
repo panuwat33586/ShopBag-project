@@ -21,6 +21,22 @@ export default class MainCategory extends Component {
      
     }
   }
+  componentDidMount(){
+    Axios.get(`${this.props.location.pathname}`)
+    .then((response) => {
+      this.setState({
+        showmaincategory: response.data[0].name,
+        showsubcategory:response.data[0].subcategories,
+        products:response.data[0].products
+      },
+      ()=>{this.setState({
+        showproduct: this.state.products.slice(this.state.minValue, this.state.maxValue)
+      })})         
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
   handlePage = value => {
     console.log(value)
     if (value === 1) {
@@ -43,25 +59,16 @@ export default class MainCategory extends Component {
       });
     }
   };
-  componentDidMount(){
-    Axios.get(`${this.props.location.pathname}`)
-    .then((response) => {
-      console.log(response.data[0].products)
-      this.setState({
-        showmaincategory: response.data[0].name,
-        showsubcategory:response.data[0].subcategories,
-        products:response.data[0].products
-      },
-      ()=>{this.setState({
-        showproduct: this.state.products.slice(this.state.minValue, this.state.maxValue)
-      })})         
+  handleSelectSubCategory=(subcategoryid)=>{
+    Axios.get(`/subcategories/${subcategoryid}`)
+    .then((response)=>{
+      this.setState(
+        {products:response.data[0].products},
+        ()=>{this.setState({
+          showproduct: this.state.products.slice(this.state.minValue, this.state.maxValue)
+        })})
     })
-    .catch(err => {
-          console.error(err)
-        })
   }
-
-
   render() {
     return (
       <>
@@ -72,9 +79,9 @@ export default class MainCategory extends Component {
               <h2>{this.state.showmaincategory}</h2>
             </Row>
             <Row>
-              <Menu>
+              <Menu selectedKeys={['1']}>
                 {this.state.showsubcategory.map(subcategory =>
-                  <Menu.Item>
+                  <Menu.Item onClick={()=>this.handleSelectSubCategory(subcategory.id)}>
                     <span>{subcategory.name}</span>
                   </Menu.Item>
                 )}

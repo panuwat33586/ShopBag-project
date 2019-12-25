@@ -1,6 +1,9 @@
 module.exports = (app, db) => {
-    app.get('/subcategories', (req, res) => {
-      db.subcategorie.findAll()
+    app.get('/subcategories/:subcategoryid', (req, res) => {
+      db.subcategorie.findAll({
+        where:{id:req.params.subcategoryid},
+        include:[{model:db.product,attributes:['id','name','price','product_image']}]
+      })
         .then(result => {
           res.status(200).json(result)
         })
