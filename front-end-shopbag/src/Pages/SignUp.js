@@ -1,13 +1,31 @@
 import React, { Component } from 'react'
 import { Row, Col, Input, Button } from 'antd'
 import CategorySelection from '../Components/CategorySelection'
+import Axios from '../config/axios.setup'
 
 
 export default class SignUp extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            maincategory:[]
+        }
+    }
+    componentDidMount(){
+        Axios.get('/maincategorytag')
+        .then(response => {
+          this.setState({
+            maincategory: response.data
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        }); 
+    }
     render() {
         return (
             <>
-            <CategorySelection/>
+            <CategorySelection maincategories={this.state.maincategory}/>
                         <Row gutter={[0, 40]}>
                             <Col >
                                 <Row><h1>Welcome to SHOPBAG</h1></Row>

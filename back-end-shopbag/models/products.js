@@ -20,12 +20,25 @@ module.exports = (sequelize, DataTypes) => {
        },
        product_image:{
          type:DataTypes.STRING(500)
+       },
+       sell:{
+         type:DataTypes.INTEGER,
+         validate:{
+          min: 0
+        }
+       },
+       liked:{
+         type:DataTypes.INTEGER,
+         validate:{
+          min: 0
+        }
        }
     })
   
     product.associate=function(models){
          product.belongsTo(models.maincategorie,{ foreignKey: 'maincategorie_id' })
          product.belongsTo(models.subcategorie,{ foreignKey: 'subcategorie_id' })
+         product.belongsTo(models.user,{foreignKey:'user_id'})
     }
     return product
   }
