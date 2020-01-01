@@ -1,57 +1,192 @@
 import React, { Component } from 'react'
-import { Row, Col, Input, Button } from 'antd'
+import { Row, Col, Input, Button, Form, DatePicker, Radio } from 'antd'
 import CategorySelection from '../Components/CategorySelection'
 import Axios from '../config/axios.setup'
 
 
-export default class SignUp extends Component {
-    constructor(props){
+class SignUp extends Component {
+    constructor(props) {
         super(props)
-        this.state={
-            maincategory:[]
+        this.state = {
+            maincategory: [],
+            isDirty: false
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         Axios.get('/maincategorytag')
-        .then(response => {
-          this.setState({
-            maincategory: response.data
-          })
-        })
-        .catch(err => {
-          console.log(err)
-        }); 
+            .then(response => {
+                this.setState({
+                    maincategory: response.data
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            });
     }
+    handleDirtyBlur = e => {
+        const { value } = e.target
+        this.setState({ isDirty: this.state.isDirty || !!value })
+    }
+
+    compareToFirstPassword = (rule, value, callback) => {
+        const { form } = this.props
+        if (value && value !== form.getFieldValue('password')) {
+            callback('Password and Confirm password are not the same')
+        } else {
+            callback()
+        }
+    }
+
+    compareToSecondPassword = (rule, value, callback) => {
+        const { form } = this.props
+        if (value && this.state.isDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback()
+    }
+
     render() {
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 24 },
+                md:  {span: 9}
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 24},
+                md: { span: 15 }
+            },
+        };
+        const { getFieldDecorator } = this.props.form
         return (
             <>
-            <CategorySelection maincategories={this.state.maincategory}/>
-                        <Row gutter={[0, 40]}>
-                            <Col >
-                                <Row><h1>Welcome to SHOPBAG</h1></Row>
-                                <Row style={{ marginBottom: '20px' }}><h3>Please input your information below</h3></Row>
-                                <Row type='flex' style={{ width: '50%', marginBottom: '20px' }}>
-                                    <Col span={5}> <h3>First name</h3></Col>
-                                    <Col span={19}> <Input placeholder="Please enter your First name" /></Col>
-                                </Row>
-                                <Row type='flex' style={{ width: '50%', marginBottom: '20px' }}>
-                                    <Col span={5}> <h3>Last name</h3></Col>
-                                    <Col span={19}> <Input placeholder="Please enter your Last name" /></Col>
-                                </Row>
-                                <Row type='flex' style={{ width: '50%', marginBottom: '20px' }}>
-                                    <Col span={5}> <h3>Password</h3></Col>
-                                    <Col span={19}> <Input.Password placeholder="Please enter your password" /></Col>
-                                </Row>
-                                <Row type='flex' style={{ width: '50%', marginBottom: '20px' }}>
-                                    <Col span={5}> <h3>Confirm Password</h3></Col>
-                                    <Col span={19}> <Input.Password placeholder="Please enter confirm your password" /></Col>
-                                </Row>
-                            </Col>
-                            <Row type='flex' justify='end' style={{ width: '70%', marginBottom: '20px' }}>
-                                <Button size='large' type='primary'>Create Account</Button>
-                            </Row>
+                <CategorySelection maincategories={this.state.maincategory} />
+                <Row gutter={[0, 40]}>
+                    <Col >
+                        <Row><h1>Welcome to SHOPBAG</h1></Row>
+                        <Row style={{ marginBottom: '20px' }}><h3>Please input your information below</h3></Row>
+                        <Row type='flex' justify='start' style={{ marginBottom: '20px' }}>
+                            <Form layout='horizontal' {...formItemLayout} style={{ width: '30%' }}>
+                                <Form.Item label="Firstname">
+                                    {getFieldDecorator('firstname', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input your firstname'
+                                            }
+                                        ]
+                                    })(<Input />)}
+                                </Form.Item>
+                                <Form.Item label="Lastname">
+                                    {getFieldDecorator('lastname', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input your lastname'
+                                            }
+                                        ]
+                                    })(<Input />)}
+                                </Form.Item>
+                                <Form.Item label="Birth date">
+                                    {getFieldDecorator('birthdate', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please select your birth date'
+                                            }
+                                        ]
+                                    })(<DatePicker />)}
+                                </Form.Item>
+                                <Form.Item label="Gender">
+                                    {getFieldDecorator('gender', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please select gender'
+                                            }
+                                        ]
+                                    })(<Radio.Group>
+                                        <Radio value='male'>Male</Radio>
+                                        <Radio value='female'>Female</Radio>
+                                    </Radio.Group>)}
+                                </Form.Item>
+                                <Form.Item label="Email">
+                                    {getFieldDecorator('email', {
+                                        rules: [
+                                            {
+                                                type: 'email',
+                                                message: 'The input is not valid E-mail!',
+                                            },
+                                            {
+                                                required: true,
+                                                message: 'Please input your E-mail!',
+                                            },
+                                        ],
+                                    })(<Input />)}
+                                </Form.Item>
+                                <Form.Item label="Phone number">
+                                    {getFieldDecorator('phone number', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input your phone number'
+                                            }
+                                        ]
+                                    })(<Input />)}
+                                </Form.Item>
+                                <Form.Item label="Username">
+                                    {getFieldDecorator('username', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input username'
+                                            }
+                                        ]
+                                    })(<Input />)}
+                                </Form.Item>
+                                <Form.Item label="Password">
+                                    {getFieldDecorator('password', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please input password'
+                                            },
+                                            {
+                                                validator: this.compareToSecondPassword
+                                            }
+                                        ]
+                                    })(<Input.Password />)}
+                                </Form.Item>
+                                <Form.Item label="Confirm password">
+                                    {getFieldDecorator('confirm', {
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: 'Please confirm password'
+                                            },
+                                            {
+                                                validator: this.compareToFirstPassword,
+                                            }
+                                        ]
+                                    })(<Input.Password onBlur={this.handleDirtyBlur} />)}
+                                </Form.Item>
+                            </Form>
                         </Row>
-                        </>
+                        <Row type='flex' justify='end'>
+                            <Col md={8} sm={12} xs={24}>
+                                <Form.Item>
+                                    <Button block type="primary" htmlType="submit" className="login-form-button" style={{width:'200px'}}>
+                                        Create Account
+                    </Button>
+                                </Form.Item>
+                            </Col>
+                        </Row>
+                    </Col>
+
+                </Row>
+            </>
         )
     }
 }
+export default Form.create()(SignUp);
