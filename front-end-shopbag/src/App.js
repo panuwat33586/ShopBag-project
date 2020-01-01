@@ -21,7 +21,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route exact path='/signup' component={SignUp} />
             <Route path='/maincategory' component={MainCategory} />
-            <Route exact path='/product' component={Product} />
+            <Route  path='/product' component={Product} />
             <Redirect to='/' />
           </Switch>
         </Col>

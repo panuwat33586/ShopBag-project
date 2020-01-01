@@ -23,5 +23,9 @@ module.exports = (sequelize, DataTypes) => {
        }
     })
   
+    product.associate=function(models){
+         product.belongsTo(models.maincategorie,{ foreignKey: 'maincategorie_id' })
+         product.belongsTo(models.subcategorie,{ foreignKey: 'subcategorie_id' })
+    }
     return product
   }

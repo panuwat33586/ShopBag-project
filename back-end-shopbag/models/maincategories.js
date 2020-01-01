@@ -2,6 +2,9 @@ module.exports = (sequelize, DataTypes) => {
     const maincategorie = sequelize.define('maincategorie', {
       name: {
         type: DataTypes.STRING(50)
+      },
+      icon:{
+        type:DataTypes.STRING(20)
       }
     })
     maincategorie.associate=function(models){
