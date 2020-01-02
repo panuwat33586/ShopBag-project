@@ -44,7 +44,31 @@ class SignUp extends Component {
         }
         callback()
     }
-
+    submitForm = (e) => {
+        e.preventDefault();
+        this.props.form.validateFieldsAndScroll((err, value) => {
+            console.log(value)
+          if (!err) {
+            Axios.post('/registerUser', {
+              firstname:value.firstname,
+              lastname:value.lastname,
+              birthdate:value.birthdate,
+              gender:value.gender,
+              phonenumber:value.phonenumber,
+              username: value.username,
+              password: value.password,
+              email:value.email,
+            })
+              .then(result => {
+                console.log(result)
+              })
+              .catch(err => {
+                console.error(err)
+              })
+            this.props.form.resetFields()
+          }
+        })
+      }
     render() {
         const formItemLayout = {
             labelCol: {
@@ -67,7 +91,7 @@ class SignUp extends Component {
                         <Row><h1>Welcome to SHOPBAG</h1></Row>
                         <Row style={{ marginBottom: '20px' }}><h3>Please input your information below</h3></Row>
                         <Row type='flex' justify='start' style={{ marginBottom: '20px' }}>
-                            <Form layout='horizontal' {...formItemLayout} style={{ width: '30%' }}>
+                            <Form layout='horizontal' {...formItemLayout} style={{ width: '40%' }} onSubmit={this.submitForm}>
                                 <Form.Item label="Firstname">
                                     {getFieldDecorator('firstname', {
                                         rules: [
@@ -126,7 +150,7 @@ class SignUp extends Component {
                                     })(<Input />)}
                                 </Form.Item>
                                 <Form.Item label="Phone number">
-                                    {getFieldDecorator('phone number', {
+                                    {getFieldDecorator('phonenumber', {
                                         rules: [
                                             {
                                                 required: true,
@@ -171,16 +195,16 @@ class SignUp extends Component {
                                         ]
                                     })(<Input.Password onBlur={this.handleDirtyBlur} />)}
                                 </Form.Item>
-                            </Form>
-                        </Row>
                         <Row type='flex' justify='end'>
                             <Col md={8} sm={12} xs={24}>
                                 <Form.Item>
-                                    <Button block type="primary" htmlType="submit" className="login-form-button" style={{width:'200px'}}>
+                                    <Button block type="primary" htmlType="submit"  style={{width:'200px'}}>
                                         Create Account
                     </Button>
                                 </Form.Item>
                             </Col>
+                        </Row>
+                            </Form>
                         </Row>
                     </Col>
 

@@ -18,9 +18,9 @@ export default class Topnavbar extends Component {
     changeAfterlogin=()=>{
         switch (this.state.isLogin){
           case false:
-              return <SignInModal/>
+              return <SignInModal checklogin={this.handleChecklogin}/>
            case true:
-               return <Userdropdown/>
+               return <Userdropdown checklogout={this.handleChecklogout}/>
         }
             
     }
@@ -28,6 +28,12 @@ export default class Topnavbar extends Component {
     handleChecklogin=()=>{
         this.setState({
             isLogin:true
+        })
+    }
+
+    handleChecklogout=()=>{
+        this.setState({
+            isLogin:false
         })
     }
     render() {

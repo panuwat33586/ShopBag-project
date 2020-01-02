@@ -27,7 +27,7 @@ export default class Home extends Component {
           <>     
                <CategorySelection maincategories={this.state.maincategory} />   
                <PromotionCarousel />
-              {this.state.maincategory.map(maincategory=><Productcard maincategory={maincategory}/>)}
+              {this.state.maincategory.map(maincategory=><Productcard maincategory={maincategory} key={maincategory.id}/>)}
          </>
         )
     }

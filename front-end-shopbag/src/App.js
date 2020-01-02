@@ -18,11 +18,11 @@ function App() {
         <Col>
           <Topnavbar />
           <Switch>
-            <Route exact path='/' component={Home} />
+            <Route exact path='/Home' component={Home} />
             <Route exact path='/signup' component={SignUp} />
             <Route path='/maincategory' component={MainCategory} />
             <Route  path='/product' component={Product} />
-            <Redirect to='/' />
+            <Redirect to='/Home' />
           </Switch>
         </Col>
       </Row>

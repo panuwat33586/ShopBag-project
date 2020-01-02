@@ -10,7 +10,7 @@ export default class CategorySelection extends Component {
                 </Col>
                 {this.props.maincategories.map(maincategory =>
                     <Col >
-                        <Button type="link" icon={maincategory.icon} size={'large'} style={{ color: 'black', fontSize: '20px' }} href={`/maincategory/${maincategory.id}`}>{maincategory.name}</Button>
+                        <Button type="link" icon={maincategory.icon} size={'large'} style={{ color: 'black', fontSize: '20px' }} href={`/maincategory/${maincategory.id}`} key={maincategory.id}>{maincategory.name}</Button>
                     </Col>
                 )}
             </Row>
