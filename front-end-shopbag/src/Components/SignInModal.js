@@ -9,7 +9,8 @@ export default class SignInModal extends Component {
         this.state = {
             visible: false,
             username: '',
-            password: ''
+            password: '',
+            notification: ''
         };
     }
 
@@ -30,7 +31,9 @@ export default class SignInModal extends Component {
                 this.props.checklogin()
             })
             .catch(err => {
-                console.error(err);
+                this.setState({
+                    notification:err.response.data
+                })
             })
     };
     handleClose = e => {
@@ -61,6 +64,11 @@ export default class SignInModal extends Component {
                             <Row type='flex' align='middle' style={{ marginBottom: '10px' }}>
                                 <Col span={24}>
                                     <Row style={{ marginBottom: '10px' }} >
+                                        <Row>
+                                            <Col>
+                                                <span style={{ color: 'red' }}>{this.state.notification}</span>
+                                            </Col>
+                                        </Row>
                                         <Row gutter={[16, 24]}>
                                             <Col>
                                                 <b>Username</b>
@@ -96,7 +104,7 @@ export default class SignInModal extends Component {
                                 </Col>
                             </Row>
                             <Row type='flex' align='bottom' justify='center' >
-                                <Button type='primary' onClick={()=>this.handleSignin()}>Sign in</Button>
+                                <Button type='primary' onClick={() => this.handleSignin()}>Sign in</Button>
                             </Row>
                         </Col>
                     </Row>

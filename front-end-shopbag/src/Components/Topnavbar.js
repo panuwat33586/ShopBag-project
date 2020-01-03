@@ -14,6 +14,17 @@ export default class Topnavbar extends Component {
            isLogin:false
         }
     }
+componentDidMount(){
+    if(localStorage.getItem('ACCESS_TOKEN')!==null){
+        this.setState({
+            isLogin:true
+        })
+    }else{
+        this.setState({
+            isLogin:false
+        })
+    }
+}
     
     changeAfterlogin=()=>{
         switch (this.state.isLogin){

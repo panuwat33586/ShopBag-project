@@ -62,7 +62,7 @@ module.exports = (app, db) => {
             }
             if (info !== undefined) {
                 console.error(info.message);
-                if (info.message === 'bad username') {
+                if (info.message === 'username or password is invalid') {
                     res.status(401).send(info.message);
                 } else {
                     res.status(403).send(info.message);

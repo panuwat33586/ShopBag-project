@@ -10,6 +10,19 @@ module.exports = (app, db) => {
           res.status(400).json({message:err.message})
         })
     })
+    app.get('/product/:productid', (req, res) => {
+      db.product.findOne({
+        attributes:['id','name','description','price','product_image'],
+        where:{id:req.params.productid},
+        include:[{model:db.maincategorie,attributes:['id','name']},{model:db.subcategorie,attributes:['id','name']}]
+      })
+        .then(result => {
+          res.status(200).json(result)
+        })
+        .catch(err=>{
+          res.status(400).json({message:err.message})
+        })
+    })
     app.post('/product',(req,res)=>{
       db.product.create(
         {name:req.body.name,

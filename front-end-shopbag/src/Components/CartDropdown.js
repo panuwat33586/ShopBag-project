@@ -1,33 +1,31 @@
 import React, { Component } from 'react'
-import{Menu, Dropdown, Icon,Badge } from 'antd'
+import{Menu, Dropdown, Icon,Badge, Empty } from 'antd'
 
 export default class CartDropdown extends Component {
-     
-    render() {
-        const cart = (
-  <Menu>
+  renderitem(){
+    if(localStorage.getItem('ACCESS_TOKEN')!==null){
+     return(<Menu>
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
         1st menu item
       </a>
     </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        2nd menu item
-      </a>
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-        3rd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
+  </Menu>)
+  }else{
+      return(<Menu image={Empty.PRESENTED_IMAGE_SIMPLE}>
+       <Empty>
+         <span>Please sign in</span>
+       </Empty>
+      </Menu>)
+  }
+  }
+     
+    render() {
         return (
-            <Dropdown overlay={cart}>
+            <Dropdown overlay={this.renderitem()}>
                 <div>
             <a href="#">
-                            <Badge count={1}>
+                            <Badge count={0}>
                                 <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
                             </Badge>
             </a>
