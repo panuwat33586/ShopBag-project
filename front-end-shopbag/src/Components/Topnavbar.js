@@ -72,7 +72,7 @@ componentDidMount(){
                         </Row>
                     </Col>
                     <Col>
-                        <CartDropdown />
+                        <CartDropdown isLogin={this.state.isLogin}/>
                     </Col>
                 </Row>
                 <hr />

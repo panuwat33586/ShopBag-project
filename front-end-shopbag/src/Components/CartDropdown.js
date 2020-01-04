@@ -1,37 +1,69 @@
 import React, { Component } from 'react'
-import{Menu, Dropdown, Icon,Badge, Empty } from 'antd'
+import { Menu, Dropdown, Icon, Badge, Empty, Row, Col, Avatar, Card, Button } from 'antd'
+import { connect } from 'react-redux'
+import {Deleteitems} from '../Redux/actions/actions'
 
-export default class CartDropdown extends Component {
-  renderitem(){
-    if(localStorage.getItem('ACCESS_TOKEN')!==null){
-     return(<Menu>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-        1st menu item
-      </a>
-    </Menu.Item>
-  </Menu>)
-  }else{
-      return(<Menu image={Empty.PRESENTED_IMAGE_SIMPLE}>
-       <Empty>
-         <span>Please sign in</span>
-       </Empty>
+
+class CartDropdown extends Component {
+
+  renderitem() {
+    if (this.props.isLogin == true && this.props.cartItems.length !==0) {
+      return (<Menu>
+        { this.props.cartItems.map(
+          item =>
+            <Menu.Item>
+              <Row type='flex' align='middle' gutter={[16]}>
+                <Col>
+                  <Avatar src={item.product_image} />
+                </Col>
+                <Col>
+                  <Row>  <span>{item.name}</span></Row>
+                  <Row>  <span>{item.price}</span></Row>
+                </Col>
+                <Col><span>X {item.quantity}</span></Col>
+                <Col><Button type='danger' shape='circle' ghost onClick={()=>this.props.Deleteitems(item.id)}>X</Button></Col>
+              </Row>
+            </Menu.Item>)}
+      </Menu>
+      )
+    } else if(this.props.isLogin == true && this.props.cartItems.length ==0){
+      return (<Menu image={Empty.PRESENTED_IMAGE_SIMPLE}>
+        <Empty>
+          <span>no product in cart</span>
+        </Empty>
       </Menu>)
-  }
-  }
-     
-    render() {
-        return (
-            <Dropdown overlay={this.renderitem()}>
-                <div>
-            <a href="#">
-                            <Badge count={0}>
-                                <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
-                            </Badge>
-            </a>
-                        <b style={{ fontSize: '20px' }}>Cart</b>
-                </div>
-          </Dropdown>
-        )
     }
+    else {
+      return (<Menu image={Empty.PRESENTED_IMAGE_SIMPLE}>
+        <Empty>
+          <span>Please sign in</span>
+        </Empty>
+      </Menu>)
+    }
+  }
+
+  render() {
+    return (
+      <Dropdown overlay={this.renderitem()}>
+        <div>
+          <a href="#">
+            <Badge count={this.props.cartItems.length}>
+              <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
+            </Badge>
+          </a>
+          <b style={{ fontSize: '20px' }}>Cart</b>
+        </div>
+      </Dropdown>
+    )
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    cartItems: state.cartItems
+  }
+}
+const mapDispatchToProps = {
+  Deleteitems:Deleteitems
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CartDropdown)

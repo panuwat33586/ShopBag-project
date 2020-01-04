@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Card, Input, Avatar, Divider } from 'antd'
 import Axios from '../config/axios.setup'
 import CategorySelection from '../Components/CategorySelection'
+import { connect } from 'react-redux'
+import {Additems} from '../Redux/actions/actions'
 
 
-
-export default class Product extends Component {
+ class Product extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -32,7 +33,7 @@ export default class Product extends Component {
           product: response.data,
           showmaincategory: response.data.maincategorie,
           showsubcategory: response.data.subcategorie
-        }, () => console.log(this.state.product))
+        })
       })
       .catch(err => {
         console.log(err)
@@ -101,8 +102,8 @@ export default class Product extends Component {
                   </Col>
                 </Row>
                 <Row type='flex' justify='start' gutter={[8, 48]}>
-                  <Col ><Button type='danger' icon='shopping-cart' ghost>Add to Cart</Button> </Col>
-                  <Col ><Button type='danger' icon='dollar'>Purchase</Button></Col>
+                  <Col ><Button type='danger' icon='shopping-cart' ghost onClick={()=>this.props.Additems(this.state.product,this.state.quantity)}>Add to Cart</Button> </Col>
+                  <Col ><Button type='danger' icon='dollar' onClick={console.log(this.state.product)}>Purchase</Button></Col>
                 </Row>
               </Col>
             </Row>
@@ -132,3 +133,7 @@ export default class Product extends Component {
     )
   }
 }
+const mapDispatchToProps = {
+  Additems:Additems
+}
+export default connect(null, mapDispatchToProps)(Product)
