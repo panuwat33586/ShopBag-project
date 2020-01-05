@@ -1,31 +1,11 @@
-import {ADD_ITEMS} from '../actions/actions'
-import {DELETE_ITEMS} from '../actions/actions'
+import { combineReducers } from 'redux';
+import userReducer from './userReducer'
+import cartReducer from './cartReducer'
 
-const initialState=
-{
-    cartItems:[]
-}
+const reducers = combineReducers({
+  user: userReducer,
+  cart: cartReducer
+});
 
-function reducers(state=initialState,action){
-        switch (action.type) {
-            case ADD_ITEMS:
-                return{
-                    ...state,
-                      cartItems:[
-                         ...state.cartItems,action.items
-                      ]
-                }
-            case  DELETE_ITEMS:{
-                return{
-                    ...state,
-                    cartItems:state.cartItems.filter(item=>item.id!==action.productid)
-                }
-            }
-            default:
-                return{
-                    ...state
-                }
-        }
-}
 
 export default reducers

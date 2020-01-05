@@ -66,6 +66,7 @@ class SignUp extends Component {
                 console.error(err)
               })
             this.props.form.resetFields()
+            window.location.replace ( "/home" );
           }
         })
       }

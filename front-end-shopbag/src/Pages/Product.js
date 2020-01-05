@@ -62,6 +62,13 @@ import {Additems} from '../Redux/actions/actions'
       })
     }
   }
+  handleAddproduct=()=>{
+       if(this.props.user.role=='user'){
+        this.props.Additems(this.state.product,this.state.quantity)
+       }else{
+         return
+       }
+  }
   render() {
     const product = this.state.product
     return (
@@ -102,8 +109,8 @@ import {Additems} from '../Redux/actions/actions'
                   </Col>
                 </Row>
                 <Row type='flex' justify='start' gutter={[8, 48]}>
-                  <Col ><Button type='danger' icon='shopping-cart' ghost onClick={()=>this.props.Additems(this.state.product,this.state.quantity)}>Add to Cart</Button> </Col>
-                  <Col ><Button type='danger' icon='dollar' onClick={console.log(this.state.product)}>Purchase</Button></Col>
+                  <Col ><Button type='danger' icon='shopping-cart' ghost onClick={()=>this.handleAddproduct()}>Add to Cart</Button> </Col>
+                  <Col ><Button type='danger' icon='dollar' >Purchase</Button></Col>
                 </Row>
               </Col>
             </Row>
@@ -133,7 +140,12 @@ import {Additems} from '../Redux/actions/actions'
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
 const mapDispatchToProps = {
   Additems:Additems
 }
-export default connect(null, mapDispatchToProps)(Product)
+export default connect(mapStateToProps, mapDispatchToProps)(Product)

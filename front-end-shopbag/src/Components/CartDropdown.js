@@ -7,9 +7,9 @@ import {Deleteitems} from '../Redux/actions/actions'
 class CartDropdown extends Component {
 
   renderitem() {
-    if (this.props.isLogin == true && this.props.cartItems.length !==0) {
+    if (this.props.isLogin == true && this.props.cart.length !==0) {
       return (<Menu>
-        { this.props.cartItems.map(
+        { this.props.cart.map(
           item =>
             <Menu.Item>
               <Row type='flex' align='middle' gutter={[16]}>
@@ -26,7 +26,7 @@ class CartDropdown extends Component {
             </Menu.Item>)}
       </Menu>
       )
-    } else if(this.props.isLogin == true && this.props.cartItems.length ==0){
+    } else if(this.props.isLogin == true && this.props.cart.length ==0){
       return (<Menu image={Empty.PRESENTED_IMAGE_SIMPLE}>
         <Empty>
           <span>no product in cart</span>
@@ -47,7 +47,7 @@ class CartDropdown extends Component {
       <Dropdown overlay={this.renderitem()}>
         <div>
           <a href="#">
-            <Badge count={this.props.cartItems.length}>
+            <Badge count={this.props.isLogin==false?0:this.props.cart.length}>
               <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
             </Badge>
           </a>
@@ -60,7 +60,7 @@ class CartDropdown extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cartItems: state.cartItems
+    cart: state.cart.cartItems
   }
 }
 const mapDispatchToProps = {

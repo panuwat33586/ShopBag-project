@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Modal, Row, Col, Input, Button } from 'antd'
+import { Modal, Row, Col, Input, Button, Form } from 'antd'
 import Axios from '../config/axios.setup'
+import { connect } from 'react-redux'
+import { login } from '../Redux/actions/actions'
+import jwtDecode from 'jwt-decode'
 
-
-export default class SignInModal extends Component {
+ class SignInModal extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -19,20 +21,24 @@ export default class SignInModal extends Component {
             visible: true,
         });
     };
-    handleSignin = () => {
+    handleSignin = (e) => {
+        e.preventDefault()
         const username = this.state.username
         const password = this.state.password
         Axios.post('/loginUser', { username, password })
             .then(result => {
+                const user = jwtDecode(result.data.token)
+                this.props.login(user, result.data.token)
                 this.setState({
                     visible: false,
                 });
-                localStorage.setItem("ACCESS_TOKEN", result.data.token);
                 this.props.checklogin()
+                window.location.reload(true);
             })
             .catch(err => {
+                console.log(err.response)
                 this.setState({
-                    notification:err.response.data
+                    notification: err.response.data
                 })
             })
     };
@@ -61,6 +67,7 @@ export default class SignInModal extends Component {
                             <Row type='flex' align='top' style={{ marginBottom: '10px' }}>
                                 <img src='https://drive.google.com/uc?id=1PjvmChcgEnR-zCOh5828o2bkPP-oWaXV' alt='SHOPBAG Logo' />
                             </Row>
+                            <Form onSubmit={(e)=>this.handleSignin(e)}>
                             <Row type='flex' align='middle' style={{ marginBottom: '10px' }}>
                                 <Col span={24}>
                                     <Row style={{ marginBottom: '10px' }} >
@@ -104,8 +111,9 @@ export default class SignInModal extends Component {
                                 </Col>
                             </Row>
                             <Row type='flex' align='bottom' justify='center' >
-                                <Button type='primary' onClick={() => this.handleSignin()}>Sign in</Button>
+                                <Button type='primary' htmlType='submit'>Sign in</Button>
                             </Row>
+                            </Form>
                         </Col>
                     </Row>
                 </Modal>
@@ -113,3 +121,9 @@ export default class SignInModal extends Component {
         )
     }
 }
+
+const mapDispatchToProps = {
+    login: login
+  }
+
+  export default connect(null, mapDispatchToProps)(SignInModal)

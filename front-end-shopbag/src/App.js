@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 import {Row,Col} from 'antd'
@@ -9,20 +9,19 @@ import Product from './Pages/Product';
 import MainCategory from './Pages/MainCategory';
 import Topnavbar from './Components/Topnavbar';
 import Footer from './Components/Footer';
+import { connect } from 'react-redux'
+import PrivateRoute from './Components/Routes/privateRoute';
 
-
-function App() {
-  return (
-    <Row style={{ height: '100%', width: '100%' }}>
+class App extends Component {
+  render() {
+    const role = this.props.user.role
+    return (
+      <Row style={{ height: '100%', width: '100%' }}>
       <Row style={{ marginLeft: '10%', marginRight: '10%', marginBottom: '50px', height: '100%' }}>
         <Col>
           <Topnavbar />
           <Switch>
-            <Route exact path='/Home' component={Home} />
-            <Route exact path='/signup' component={SignUp} />
-            <Route path='/maincategory' component={MainCategory} />
-            <Route  path='/product' component={Product} />
-            <Redirect to='/Home' />
+          <PrivateRoute handleAppLogin={this.login} role={role} />
           </Switch>
         </Col>
       </Row>
@@ -30,8 +29,14 @@ function App() {
         <Footer />
       </Row>
     </Row>
-
-  );
+    )
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, null)(App)

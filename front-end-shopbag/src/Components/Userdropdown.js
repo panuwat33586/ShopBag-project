@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Menu, Dropdown,Button } from 'antd';
+import { connect } from 'react-redux'
 import jwtDecode from 'jwt-decode'
+import {logout} from '../Redux/actions/actions'
 
-export default class Userdropdown extends Component {
+ class Userdropdown extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -16,8 +18,9 @@ componentDidMount(){
     })
 }   
   handleSignout = () => {
-    localStorage.removeItem('ACCESS_TOKEN')
+    this.props.logout()
     this.props.checklogout()
+    window.location.reload(true);
 }
     render() {
         const menu = (
@@ -41,3 +44,9 @@ componentDidMount(){
         )
     }
 }
+
+const mapDispatchToProps = {
+    logout: logout
+  }
+
+  export default connect(null, mapDispatchToProps)(Userdropdown)

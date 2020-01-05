@@ -4,10 +4,11 @@ import SignInModal from './SignInModal';
 import Userdropdown from './Userdropdown';
 import CartDropdown from './CartDropdown';
 import LanguageSelection from './LanguageSelection';
+import {connect} from 'react-redux'
 
 const { Search } = Input;
 
-export default class Topnavbar extends Component {
+ class Topnavbar extends Component {
     constructor(props){
         super(props)
         this.state={
@@ -15,7 +16,7 @@ export default class Topnavbar extends Component {
         }
     }
 componentDidMount(){
-    if(localStorage.getItem('ACCESS_TOKEN')!==null){
+    if(this.props.user.role=='user'){
         this.setState({
             isLogin:true
         })
@@ -81,3 +82,11 @@ componentDidMount(){
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+      user: state.user
+    }
+  }
+  
+  export default connect(mapStateToProps, null)(Topnavbar)
