@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CategorySelection from '../Components/CategorySelection'
+import CategorySelection from '../Components/Header/CategorySelection'
 import PromotionCarousel from '../Components/PromotionCarousel';
 import Productcard from '../Components/Productcard';
 import Axios from '../config/axios.setup'

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Row, Col, Input, Button, Form } from 'antd'
-import Axios from '../config/axios.setup'
+import Axios from '../../config/axios.setup'
 import { connect } from 'react-redux'
-import { login } from '../Redux/actions/actions'
+import { login } from '../../Redux/actions/actions'
 import jwtDecode from 'jwt-decode'
 
  class SignInModal extends Component {

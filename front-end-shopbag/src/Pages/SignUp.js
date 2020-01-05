@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col, Input, Button, Form, DatePicker, Radio } from 'antd'
-import CategorySelection from '../Components/CategorySelection'
+import CategorySelection from '../Components/Header/CategorySelection'
 import Axios from '../config/axios.setup'
 
 

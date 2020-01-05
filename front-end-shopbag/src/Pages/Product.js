@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col, Button, Card, Input, Avatar, Divider } from 'antd'
 import Axios from '../config/axios.setup'
-import CategorySelection from '../Components/CategorySelection'
+import CategorySelection from '../Components/Header/CategorySelection'
 import { connect } from 'react-redux'
 import {Additems} from '../Redux/actions/actions'
 

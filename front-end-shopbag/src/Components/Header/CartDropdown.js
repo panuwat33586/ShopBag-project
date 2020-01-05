@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu, Dropdown, Icon, Badge, Empty, Row, Col, Avatar, Card, Button } from 'antd'
 import { connect } from 'react-redux'
-import {Deleteitems} from '../Redux/actions/actions'
+import {Deleteitems} from '../../Redux/actions/actions'
 
 
 class CartDropdown extends Component {

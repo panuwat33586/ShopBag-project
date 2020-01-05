@@ -2,12 +2,7 @@ import React, { Component } from 'react'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 import {Row,Col} from 'antd'
-import { Redirect } from 'react-router'
-import Home from './Pages/Home'
-import SignUp from './Pages/SignUp';
-import Product from './Pages/Product';
-import MainCategory from './Pages/MainCategory';
-import Topnavbar from './Components/Topnavbar';
+import Topnavbar from './Components/Header/Topnavbar';
 import Footer from './Components/Footer';
 import { connect } from 'react-redux'
 import PrivateRoute from './Components/Routes/privateRoute';

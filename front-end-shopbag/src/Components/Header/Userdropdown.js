@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Dropdown,Button } from 'antd';
 import { connect } from 'react-redux'
 import jwtDecode from 'jwt-decode'
-import {logout} from '../Redux/actions/actions'
+import {logout} from '../../Redux/actions/actions'
 
  class Userdropdown extends Component {
     constructor(props){
@@ -20,13 +20,13 @@ componentDidMount(){
   handleSignout = () => {
     this.props.logout()
     this.props.checklogout()
-    window.location.reload(true);
+    window.location.replace ( "/home" );
 }
     render() {
         const menu = (
             <Menu>
                 <Menu.Item>
-                    <a  rel="noopener noreferrer" href="/cart">
+                    <a  rel="noopener noreferrer" href="/profile">
                         Profile
                 </a>
                 </Menu.Item>

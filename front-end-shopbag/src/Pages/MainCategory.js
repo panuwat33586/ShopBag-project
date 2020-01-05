@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CategorySelection from '../Components/CategorySelection'
+import CategorySelection from '../Components/Header/CategorySelection'
 import Axios from '../config/axios.setup'
 
 import { Row, Col, Card, Menu, Input, Select, Divider, Pagination, Button} from 'antd'

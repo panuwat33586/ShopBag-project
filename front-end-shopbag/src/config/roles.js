@@ -22,7 +22,7 @@ const components = {
     },
     profile: {
       component: 'Profile',
-      url: '/my-profile',
+      url: '/profile',
     }
   };
   
