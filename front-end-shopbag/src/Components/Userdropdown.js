@@ -26,7 +26,7 @@ componentDidMount(){
         const menu = (
             <Menu>
                 <Menu.Item>
-                    <a  rel="noopener noreferrer" href="#">
+                    <a  rel="noopener noreferrer" href="/cart">
                         Profile
                 </a>
                 </Menu.Item>

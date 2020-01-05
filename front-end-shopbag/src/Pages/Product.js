@@ -83,11 +83,11 @@ import {Additems} from '../Redux/actions/actions'
         </Row>
         <Row>
           <Card>
-            <Row type='flex' align='middle'>
-              <Col span={12}>
-                <Card bordered={false} cover={<img alt={product.name} src={product.product_image} />} bodyStyle={{ padding: "0" }} />
+            <Row type='flex' jusify='center'align='middle' >
+              <Col span={10}>
+                <Card bordered={false} cover={<img alt={product.name} src={product.product_image} style={{height:'70%', width:'70%'}} />} bodyStyle={{ padding: "0" }} />
               </Col>
-              <Col span={12}>
+              <Col span={14}>
                 <Row type='flex' gutter={[0, 48]}>
                   <Col> <b><h2>{product.name}</h2></b></Col>
                 </Row>

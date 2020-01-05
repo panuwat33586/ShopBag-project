@@ -48,6 +48,7 @@ class CartDropdown extends Component {
         <div>
           <a href="#">
             <Badge count={this.props.isLogin==false?0:this.props.cart.length}>
+              {console.log(this.props.cart)}
               <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
             </Badge>
           </a>

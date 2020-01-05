@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
          product.belongsTo(models.maincategorie,{ foreignKey: 'maincategorie_id' })
          product.belongsTo(models.subcategorie,{ foreignKey: 'subcategorie_id' })
          product.belongsTo(models.user,{foreignKey:'user_id'})
+         product.belongsToMany(models.order,{through:models.cart,foreignKey:'product_id'})
     }
     return product
   }

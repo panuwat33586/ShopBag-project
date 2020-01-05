@@ -9,6 +9,8 @@ const productsService = require('./services/products')
 const maincategoriesService = require('./services/maincategories')
 const subcategoriesService = require('./services/subcategories')
 const userService=require('./services/user')
+const orderService=require('./services/order')
+const cartService=require('./services/cart')
 
 // cors policy
 app.use(cors())
@@ -22,6 +24,8 @@ db.sequelize.sync({ alter: true }).then(() => {
   maincategoriesService(app, db)
   subcategoriesService(app, db)
   userService(app,db)
+  orderService(app,db)
+  cartService(app,db)
 
   app.get('/protected', passport.authenticate('jwt', { session: false }),
     function (req, res) {

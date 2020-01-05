@@ -54,7 +54,7 @@ componentDidMount(){
                 <Col> 
                 <Row type='flex' justify='space-around' align='middle' style={{ height: '180px' }}>
                     <Col>
-                        <img src='https://drive.google.com/uc?id=1PjvmChcgEnR-zCOh5828o2bkPP-oWaXV' alt='SHOPBAG Logo' />
+                      <a href='/home'><img src='https://drive.google.com/uc?id=1PjvmChcgEnR-zCOh5828o2bkPP-oWaXV' alt='SHOPBAG Logo' /></a>  
                     </Col>
                     <Col span={13}>
                         <Search placeholder="search" size='large' enterButton />

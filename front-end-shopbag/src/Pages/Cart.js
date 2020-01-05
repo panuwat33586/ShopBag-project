@@ -5,7 +5,7 @@ export default class Cart extends Component {
     render() {
         return (
             <>
-              <Button></Button>
+             
             </>
         )
     }
