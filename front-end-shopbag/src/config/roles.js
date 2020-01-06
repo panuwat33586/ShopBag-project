@@ -5,12 +5,12 @@ const components = {
       url: '/home',
     },
     signup: {
-      component: 'Signup',
+      component: 'SignUp',
       url: '/signup',
     },
     maincategory: {
       component: 'MainCategory',
-      url: '/maincategory',
+      url: '/maincategory/:id',
     },
     product: {
       component: 'Product',
@@ -23,13 +23,14 @@ const components = {
     profile: {
       component: 'Profile',
       url: '/profile',
-    }
+    },
   };
   
   export default {
     //role name as a key.
     admin: {
       routes: [...Object.values(components)],
+      redirect:'/home'
     },
     user: {
         routes: [
@@ -38,7 +39,8 @@ const components = {
             components.maincategory,
             components.product,
             components.profile
-        ]
+        ],
+        redirect:'/home'
     },
     guest: {
       routes: [
@@ -46,6 +48,7 @@ const components = {
         components.signup,
         components.maincategory,
         components.product
-      ]
+      ],
+      redirect:'/home'
     }
   }

@@ -3,6 +3,7 @@ import { Menu, Dropdown,Button } from 'antd';
 import { connect } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import {logout} from '../../Redux/actions/actions'
+import {Link} from 'react-router-dom'
 
  class Userdropdown extends Component {
     constructor(props){
@@ -26,12 +27,12 @@ componentDidMount(){
         const menu = (
             <Menu>
                 <Menu.Item>
-                    <a  rel="noopener noreferrer" href="/profile">
+                    <Link   to ="/profile">
                         Profile
-                </a>
+                </Link>
                 </Menu.Item>
                 <Menu.Item onClick={()=>this.handleSignout()}>
-                    <a  rel="noopener noreferrer" href="#">
+                    <a   href="#">
                         Sign Out
                 </a>
                 </Menu.Item>

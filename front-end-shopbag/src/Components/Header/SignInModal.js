@@ -4,6 +4,7 @@ import Axios from '../../config/axios.setup'
 import { connect } from 'react-redux'
 import { login } from '../../Redux/actions/actions'
 import jwtDecode from 'jwt-decode'
+import {Link} from 'react-router-dom'
 
  class SignInModal extends Component {
     constructor(props) {
@@ -101,10 +102,10 @@ import jwtDecode from 'jwt-decode'
                                     </Row>
                                     <Row style={{ marginBottom: '10px' }}>
                                         <Row >
-                                            <a href='#'>forget your password</a>
+                                            <span>forget your password</span>
                                         </Row>
                                         <Row >
-                                            <a href='/signup'>Signup for new account</a>
+                                            <Link to='/signup'>Signup for new account</Link>
                                         </Row>
 
                                     </Row>

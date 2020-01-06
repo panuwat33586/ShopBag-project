@@ -11,7 +11,7 @@ export default class Profile extends Component {
         super(props)
         this.state={
             maincategory:[],
-            selectedcategory:"My Account"
+            selectedcategory:"Selling"
         }
     }
     componentDidMount(){
@@ -63,7 +63,7 @@ export default class Profile extends Component {
                        <Col><Divider/></Col>
                    </Row>
                    <Row>
-                       <Menu defaultSelectedKeys={"My Account"} onClick={(e)=>this.handleSelectCategory(e)}>
+                       <Menu defaultSelectedKeys={"Selling"} onClick={(e)=>this.handleSelectCategory(e)}>
                          <Menu.Item key="My Account"> 
                              <Icon type="user"/>My Account
                          </Menu.Item>

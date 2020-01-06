@@ -47,8 +47,8 @@ class CartDropdown extends Component {
       <Dropdown overlay={this.renderitem()}>
         <div>
           <a href="#">
-            <Badge count={this.props.isLogin==false?0:this.props.cart.length}>
-              {console.log(this.props.cart)}
+            <Badge count={this.props.isLogin==false?0:this.props.total}>
+              {console.log(this.props.total)}
               <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
             </Badge>
           </a>
@@ -61,7 +61,8 @@ class CartDropdown extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.cart.cartItems
+    cart: state.cart.cartItems,
+    total:state.cart.total
   }
 }
 const mapDispatchToProps = {

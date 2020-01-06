@@ -5,6 +5,7 @@ import Userdropdown from './Userdropdown';
 import CartDropdown from './CartDropdown';
 import LanguageSelection from './LanguageSelection';
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 const { Search } = Input;
 
@@ -54,7 +55,7 @@ componentDidMount(){
                 <Col> 
                 <Row type='flex' justify='space-around' align='middle' style={{ height: '180px' }}>
                     <Col>
-                      <a href='/home'><img src='https://drive.google.com/uc?id=1PjvmChcgEnR-zCOh5828o2bkPP-oWaXV' alt='SHOPBAG Logo' /></a>  
+                      <Link to='/home'><img src='https://drive.google.com/uc?id=1PjvmChcgEnR-zCOh5828o2bkPP-oWaXV' alt='SHOPBAG Logo' /></Link>  
                     </Col>
                     <Col span={13}>
                         <Search placeholder="search" size='large' enterButton />

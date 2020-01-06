@@ -4,36 +4,42 @@ import rolesConfig from '../../config/roles'
 import { Route, withRouter } from 'react-router-dom';
 import { Redirect } from 'react-router-dom'
 import store from "../../Redux/store/store";
-import {LOGOUT_USER} from '../../Redux/actions/actions'
+import { LOGOUT_USER } from '../../Redux/actions/actions'
 
 class PrivateRoute extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      allowedRoutes: []
+      allowedRoutes: [],
+      redirectRoute: []
     }
   }
 
-  componentDidMount() {
-    let role = this.props.role
+  componentWillMount() {
+    let role = this.props.role || 'guest'
     if (role) {
       this.setState({
-        allowedRoutes: rolesConfig[role].routes
+        allowedRoutes: rolesConfig[role].routes,
+        redirectRoute: [rolesConfig[role].redirect]
       })
     } else {
-        store.dispatch({ type: LOGOUT_USER })
+      store.dispatch({ type: LOGOUT_USER })
     }
   }
 
   render() {
+    console.log(this.state)
     return (
       <>
         {this.state.allowedRoutes.map(route =>
           < Route
-             path={route.url}
+            path={route.url}
             component={allRoutes[route.component]}
             key={route.url}
           />
+        )}
+        {this.state.redirectRoute.map(url =>
+          <Redirect to={url} />
         )}
       </>
     )
