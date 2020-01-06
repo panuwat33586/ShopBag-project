@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
           min: 0
          }
        },
+       currency:{
+        type:DataTypes.STRING(50)
+      },
        product_image:{
          type:DataTypes.STRING(500)
        },
