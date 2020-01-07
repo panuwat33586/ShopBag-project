@@ -4,6 +4,7 @@ const cors = require('cors')
 const passport = require('passport');
 const bodyParser = require('body-parser')
 const db = require('./models')
+const fileUpload = require('express-fileupload');
 
 const productsService = require('./services/products')
 const maincategoriesService = require('./services/maincategories')
@@ -12,6 +13,11 @@ const userService=require('./services/user')
 const orderService=require('./services/order')
 const cartService=require('./services/cart')
 
+
+
+app.use(express.static("upload"))
+app.use(fileUpload());
+app.use(passport.initialize());
 // cors policy
 app.use(cors())
 // parse application/json

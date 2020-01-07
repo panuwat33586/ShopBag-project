@@ -1,54 +1,73 @@
 import React, { Component } from 'react'
 import ModalAddProduct from './ModalAddProduct'
-import {Row,Col,Divider, Button,Table} from 'antd'
+import {Row,Col,Divider, Button,Table,Avatar} from 'antd'
+import Axios from '../../config/axios.setup'
 
 export default class Selling extends Component {
     constructor(props){
         super(props)
         this.state={
-            products:[ {
-                'key': '1',
-                'Picture': 'John Brown',
-                'Name': 32,
-                'Quantity': 'New York No. 1 Lake Park',
-                'Selling price': 'nice'
-              }]
+            addedproduct:[]
         }
+        this.fetchAddedProduct=this.fetchAddedProduct.bind(this)
     }
+componentDidMount(){
+    this.fetchAddedProduct()
+}
+fetchAddedProduct(){
+    Axios.get('/addedproduct')
+    .then(response=>{
+         this.setState({
+             addedproduct:response.data
+         })
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+handleDeleteProduct(productid){
+     Axios.delete(`/deleteproduct/${productid}`)
+     .then(()=>{
+         this.fetchAddedProduct()
+     })
+     .catch(err=>{
+        console.log(err)
+     })
+}
     render() {
         const columns=[
             {
             title: 'Picture',
-            dataIndex: 'Picture',
+            dataIndex: 'product_image',
             key: 'Picture',
-            render: text => <a>{text}</a>,
+            render: text => <Avatar size={64} shape="square" src={text} />,
         },
         {
             title: 'Name',
-            dataIndex: 'Name',
+            dataIndex: 'name',
             key: 'Name',
             render: text => <a>{text}</a>,
         },
         {
             title: 'Quantity',
-            dataIndex: 'Quantity',
+            dataIndex: 'quantity',
             key: 'Quantity',
             render: text => <a>{text}</a>,
         },
         {
             title: 'Selling price',
-            dataIndex: 'Selling price',
+            dataIndex: 'price',
             key: 'Quantity',
             render: text => <a>{text}</a>,
         },
         {
             title: 'Action',
-            dataIndex: '',
+            dataIndex: 'id',
             key: 'x',
-            render: () => <Button type='danger'>Delete</Button>,
+            render: (productid) => <Button type='danger' onClick={()=>this.handleDeleteProduct(productid)}>Delete</Button>,
           },
     ]
-        const data=this.state.products
+        const data=this.state.addedproduct
         return (
             <>
               <Row>
@@ -60,7 +79,7 @@ export default class Selling extends Component {
               <Divider/>
               </Row>
               <Row>
-                 <ModalAddProduct/>  
+                 <ModalAddProduct fetchAddedProduct={this.fetchAddedProduct}/>  
               </Row>
               <Row style={{marginTop:'10px'}}>
               <Col>

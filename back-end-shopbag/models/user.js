@@ -41,9 +41,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
     user.associate=function(models){
-        user.hasMany(models.product,{foreignKey:'user_id'})
-        user.hasMany(models.address,{foreignKey:'user_id'})
-        user.hasMany(models.order,{foreignKey:'user_id'})
+        user.hasMany(models.product,{onDelete: 'CASCADE',foreignKey:'user_id'})
+        user.hasMany(models.address,{onDelete: 'CASCADE',foreignKey:'user_id'})
+        user.hasMany(models.order,{onDelete: 'CASCADE',foreignKey:'user_id'})
     }
     return user
 }

@@ -60,16 +60,12 @@ export default class MainCategory extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.state.showproduct)
-
     setTimeout(() => {
-      console.log(`${this.props.location.pathname}`)
       this.fetchData()
     }, 500)
   }
 
   componentDidMount() {
-    // console.log(`${this.props.location.pathname}`)
     this.fetchData()
   }
 

@@ -39,9 +39,9 @@ module.exports = (sequelize, DataTypes) => {
     })
   
     product.associate=function(models){
-         product.belongsTo(models.maincategorie,{ foreignKey: 'maincategorie_id' })
-         product.belongsTo(models.subcategorie,{ foreignKey: 'subcategorie_id' })
-         product.belongsTo(models.user,{foreignKey:'user_id'})
+         product.belongsTo(models.maincategorie,{onDelete: 'CASCADE', foreignKey: 'maincategorie_id' })
+         product.belongsTo(models.subcategorie,{onDelete: 'CASCADE', foreignKey: 'subcategorie_id' })
+         product.belongsTo(models.user,{onDelete: 'CASCADE',foreignKey:'user_id'})
          product.belongsToMany(models.order,{through:models.cart,foreignKey:'product_id'})
     }
     return product

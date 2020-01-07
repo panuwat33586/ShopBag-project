@@ -28,7 +28,6 @@ class PrivateRoute extends Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <>
         {this.state.allowedRoutes.map(route =>

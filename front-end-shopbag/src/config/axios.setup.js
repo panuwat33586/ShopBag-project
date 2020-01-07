@@ -21,8 +21,6 @@ const isUnprotectedPath = (url) => {
 
 axios.interceptors.request.use(
   async config => {
-    console.log(config)
-
     if (isUnprotectedPath(config.url)) {
       return config
     }
@@ -50,7 +48,7 @@ axios.interceptors.response.use(
     }
 
     if (error.request.status === 401) {
-      console.log("Session expire, redirect to login");
+      console.log("Session expire, redirect to home");
 
       localStorage.removeItem(TOKEN)
       store.dispatch({ type: LOGOUT_USER })

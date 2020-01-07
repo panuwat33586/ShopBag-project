@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     })
     maincategorie.associate=function(models){
-        maincategorie.hasMany(models.subcategorie,{ foreignKey: 'maincategorie_id' })
-        maincategorie.hasMany(models.product,{ foreignKey: 'maincategorie_id' })
+        maincategorie.hasMany(models.subcategorie,{onDelete: 'CASCADE', foreignKey: 'maincategorie_id' })
+        maincategorie.hasMany(models.product,{onDelete: 'CASCADE', foreignKey: 'maincategorie_id' })
     }
     return maincategorie
   }
