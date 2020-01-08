@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Input, Button, Form, DatePicker, Radio } from 'antd'
+import { Row, Col, Input, Button, Form, DatePicker, Radio,notification } from 'antd'
 import CategorySelection from '../Components/Header/CategorySelection'
 import Axios from '../config/axios.setup'
 
@@ -9,7 +9,8 @@ class SignUp extends Component {
         super(props)
         this.state = {
             maincategory: [],
-            isDirty: false
+            isDirty: false,
+            warning:''
         }
     }
     componentDidMount() {
@@ -48,38 +49,44 @@ class SignUp extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, value) => {
             console.log(value)
-          if (!err) {
-            Axios.post('/registerUser', {
-              firstname:value.firstname,
-              lastname:value.lastname,
-              birthdate:value.birthdate,
-              gender:value.gender,
-              phonenumber:value.phonenumber,
-              username: value.username,
-              password: value.password,
-              email:value.email,
-            })
-              .then(result => {
-                console.log(result)
-              })
-              .catch(err => {
-                console.error(err)
-              })
-            this.props.form.resetFields()
-            window.location.replace ( "/home" );
-          }
+            if (!err) {
+                Axios.post('/registerUser', {
+                    firstname: value.firstname,
+                    lastname: value.lastname,
+                    birthdate: value.birthdate,
+                    gender: value.gender,
+                    phonenumber: value.phonenumber,
+                    username: value.username,
+                    password: value.password,
+                    email: value.email,
+                })
+                    .then(result => {
+                        console.log(result)
+                        this.props.form.resetFields()
+                        window.location.replace("/home");
+                    })
+                    .catch(err => {
+                        notification['warning']({
+                            message: 'error',
+                            description:
+                              err.response.data
+                          });
+                          this.props.form.resetFields()
+                    })
+
+            }
         })
-      }
+    }
     render() {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
                 sm: { span: 24 },
-                md:  {span: 9}
+                md: { span: 9 }
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 24},
+                sm: { span: 24 },
                 md: { span: 15 }
             },
         };
@@ -121,7 +128,7 @@ class SignUp extends Component {
                                                 message: 'Please select your birth date'
                                             }
                                         ]
-                                    })(<DatePicker />)}
+                                    })(<DatePicker format={['YYYY-MM-DD']} />)}
                                 </Form.Item>
                                 <Form.Item label="Gender">
                                     {getFieldDecorator('gender', {
@@ -196,15 +203,15 @@ class SignUp extends Component {
                                         ]
                                     })(<Input.Password onBlur={this.handleDirtyBlur} />)}
                                 </Form.Item>
-                        <Row type='flex' justify='end'>
-                            <Col md={8} sm={12} xs={24}>
-                                <Form.Item>
-                                    <Button block type="primary" htmlType="submit"  style={{width:'200px'}}>
-                                        Create Account
+                                <Row type='flex' justify='end'>
+                                    <Col md={8} sm={12} xs={24}>
+                                        <Form.Item>
+                                            <Button block type="primary" htmlType="submit" style={{ width: '200px' }}>
+                                                Create Account
                     </Button>
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                                        </Form.Item>
+                                    </Col>
+                                </Row>
                             </Form>
                         </Row>
                     </Col>

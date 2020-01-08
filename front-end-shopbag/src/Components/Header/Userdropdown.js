@@ -3,6 +3,7 @@ import { Menu, Dropdown,Button } from 'antd';
 import { connect } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import {logout} from '../../Redux/actions/actions'
+import {Purchase} from '../../Redux/actions/actions'
 import {Link} from 'react-router-dom'
 
  class Userdropdown extends Component {
@@ -21,6 +22,7 @@ componentDidMount(){
   handleSignout = () => {
     this.props.logout()
     this.props.checklogout()
+    this.props.Purchase()
     window.location.replace ( "/home" );
 }
     render() {
@@ -47,7 +49,8 @@ componentDidMount(){
 }
 
 const mapDispatchToProps = {
-    logout: logout
+    logout: logout,
+    Purchase:Purchase
   }
 
   export default connect(null, mapDispatchToProps)(Userdropdown)

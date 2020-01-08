@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Button, Form, Input, InputNumber, Upload, Icon, Select } from 'antd'
 import PriceInput from './PriceInput'
 import Axios from '../../config/axios.setup'
-
+const { Dragger } = Upload;
 
 const { Option } = Select;
 class ModalAddProduct extends Component {
@@ -13,7 +13,7 @@ class ModalAddProduct extends Component {
       subcategory: [],
       visible: false,
       loading: false,
-      fileList:[] 
+      fileList: []
     }
   }
   showModal = () => {
@@ -29,15 +29,15 @@ class ModalAddProduct extends Component {
     this.props.form.validateFieldsAndScroll((err, value) => {
       if (!err) {
         let payload = new FormData()
-        payload.append('name',value.productName)
-        payload.append('description',value.productDescription)
-        payload.append('price',value.price.number)
-        payload.append('currency',value.price.currency)
-        payload.append('quantity',value.quantity)
-        payload.append('maincategoryid',value.maincategory)
-        payload.append('subcategoryid',value.subcategory)
-        payload.append('productphoto',this.state.fileList[0])
-        Axios.post('/addproduct',payload)
+        payload.append('name', value.productName)
+        payload.append('description', value.productDescription)
+        payload.append('price', value.price.number)
+        payload.append('currency', value.price.currency)
+        payload.append('quantity', value.quantity)
+        payload.append('maincategoryid', value.maincategory)
+        payload.append('subcategoryid', value.subcategory)
+        payload.append('productphoto', this.state.fileList[0])
+        Axios.post('/addproduct', payload)
           .then(() => {
             this.props.form.resetFields()
             this.props.fetchAddedProduct()
@@ -76,7 +76,7 @@ class ModalAddProduct extends Component {
         console.log(err)
       })
   }
-  
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.state;
@@ -119,11 +119,15 @@ class ModalAddProduct extends Component {
         >
           <Form layout='vertical' onSubmit={this.submitForm}>
             <Form.Item >
-            <Upload {...props}>
-                <Button>
-                  <Icon type="upload" /> Select File
-              </Button>
-              </Upload>
+              <Dragger {...props}>
+                <p className="ant-upload-drag-icon">
+                  <Icon type="inbox" />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">
+                  Support for a single upload JPEG File
+    </p>
+              </Dragger>
             </Form.Item>
             <Form.Item label='Product name'>
               {getFieldDecorator('productName', {

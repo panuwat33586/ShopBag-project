@@ -34,4 +34,21 @@ module.exports = (app, db) => {
                 })
         }
     )
+    
+    app.get('/order',passport.authenticate('jwt', { session: false }),
+          function(req,res){
+               db.order.findAll({
+                   where:{
+                       user_id:req.user.id
+                   }
+               })
+               .then(result=>{
+                   res.status(201).json(result)
+               })
+               .catch(err => {
+                res.status(400).json({ message: err.message })
+            })
+          }
+    
+    )
 }
