@@ -105,7 +105,7 @@ import {Link} from 'react-router-dom'
                                             <span>forget your password</span>
                                         </Row>
                                         <Row >
-                                            <Link to='/signup'>Signup for new account</Link>
+                                            <Link to='/signup' onClick={()=>this.setState({visible:false})}>Signup for new account</Link>
                                         </Row>
 
                                     </Row>

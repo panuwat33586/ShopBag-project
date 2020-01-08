@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Menu, Dropdown, Icon, Badge, Empty, Row, Col, Avatar, Card, Button } from 'antd'
 import { connect } from 'react-redux'
 import {Deleteitems} from '../../Redux/actions/actions'
-
+import {Link} from 'react-router-dom'
 
 class CartDropdown extends Component {
 
@@ -46,12 +46,11 @@ class CartDropdown extends Component {
     return (
       <Dropdown overlay={this.renderitem()}>
         <div>
-          <a href="#">
+         <Link to={'/cart'}>
             <Badge count={this.props.isLogin==false?0:this.props.total}>
-              {console.log(this.props.total)}
               <Icon type="shopping-cart" style={{ fontSize: '30px' }} />
             </Badge>
-          </a>
+        </Link>
           <b style={{ fontSize: '20px' }}>Cart</b>
         </div>
       </Dropdown>

@@ -57,7 +57,7 @@ handleDeleteProduct(productid){
         {
             title: 'Selling price',
             dataIndex: 'price',
-            key: 'Quantity',
+            key: 'Selling price',
             render: text => <a>{text}</a>,
         },
         {

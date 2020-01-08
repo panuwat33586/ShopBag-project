@@ -42,8 +42,8 @@ export default class PriceInput extends Component {
               style={{ width: '32%' }}
               onChange={this.handleCurrencyChange}
             >
-              <Option value="rmb">Baht</Option>
-              <Option value="dollar">Dollar</Option>
+              <Option value="Baht">Baht</Option>
+              <Option value="Dollar">Dollar</Option>
             </Select>
           </span>
         )

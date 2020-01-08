@@ -12,7 +12,7 @@ module.exports = (app, db) => {
       db.maincategorie.findAll(
         {  
           where:{id:req.params.maincategoryid},
-          include:[{model:db.subcategorie},{model:db.product,attributes:['id','name','price','product_image']}]
+          include:[{model:db.subcategorie},{model:db.product,attributes:['id','name','price','product_image','currency']}]
         }
         )
         .then(result => {

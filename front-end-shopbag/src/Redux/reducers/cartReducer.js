@@ -12,9 +12,9 @@ function cartReducers(state=initialState,action){
             case ADD_ITEMS:
                 let input = action.items
                 let oldtotal=0
-                let old = state.cartItems
+                let oldcart = state.cartItems
                 let isHave = false
-                let newObj = old.filter((item) => {
+                let newcart = oldcart.filter((item) => {
                     if (item.id === input.id) {
                         item.quantity += input.quantity
                         isHave = true
@@ -24,10 +24,10 @@ function cartReducers(state=initialState,action){
                 })
                 return{
                     ...state,
-                      cartItems:isHave ? newObj : [
+                      cartItems:isHave ? newcart : [
                          ...state.cartItems,action.items
                       ]
-                      ,total:old.length === 0 ? input.quantity : oldtotal
+                      ,total:oldcart.length === 0 ? input.quantity : state.total+=input.quantity
                 }
             case  DELETE_ITEMS:{
                 let old = state.cartItems

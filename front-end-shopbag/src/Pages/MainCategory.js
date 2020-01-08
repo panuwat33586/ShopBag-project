@@ -183,7 +183,7 @@ export default class MainCategory extends Component {
                     <Col>
                       <Link to={`/product/${product.id}`}>
                         <Card cover={<img src={product.product_image} style={{ width: '250px', height: '250px' }} />} style={{ maxWidth: '250px' }} hoverable={true}>
-                          <Meta title={product.name} description={`${product.price} Baht`} />
+                          <Meta title={product.name} description={`${product.price} ${product.currency}`} />
                         </Card>
                       </Link>
                     </Col>)}

@@ -13,9 +13,9 @@ module.exports = (app, db) => {
     })
     app.get('/product/:productid', (req, res) => {
       db.product.findOne({
-        attributes:['id','name','description','price','product_image'],
+        attributes:['id','name','description','price','product_image','currency'],
         where:{id:req.params.productid},
-        include:[{model:db.maincategorie,attributes:['id','name']},{model:db.subcategorie,attributes:['id','name']}]
+        include:[{model:db.maincategorie,attributes:['id','name']},{model:db.subcategorie,attributes:['id','name']},{model:db.user,attributes:['id','username']}]
       })
         .then(result => {
           res.status(200).json(result)

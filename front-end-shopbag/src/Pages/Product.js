@@ -3,10 +3,10 @@ import { Row, Col, Button, Card, Input, Avatar, Divider } from 'antd'
 import Axios from '../config/axios.setup'
 import CategorySelection from '../Components/Header/CategorySelection'
 import { connect } from 'react-redux'
-import {Additems} from '../Redux/actions/actions'
+import { Additems } from '../Redux/actions/actions'
 
 
- class Product extends Component {
+class Product extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,6 +14,7 @@ import {Additems} from '../Redux/actions/actions'
       showmaincategory: [],
       showsubcategory: [],
       product: [],
+      seller: [],
       quantity: 1
     }
   }
@@ -32,7 +33,8 @@ import {Additems} from '../Redux/actions/actions'
         this.setState({
           product: response.data,
           showmaincategory: response.data.maincategorie,
-          showsubcategory: response.data.subcategorie
+          showsubcategory: response.data.subcategorie,
+          seller: response.data.user
         })
       })
       .catch(err => {
@@ -62,12 +64,12 @@ import {Additems} from '../Redux/actions/actions'
       })
     }
   }
-  handleAddproduct=()=>{
-       if(this.props.user.role=='user'){
-        this.props.Additems(this.state.product,this.state.quantity)
-       }else{
-         return
-       }
+  handleAddproduct = () => {
+    if (this.props.user.role == 'user') {
+      this.props.Additems(this.state.product, this.state.quantity)
+    } else {
+      return
+    }
   }
   render() {
     const product = this.state.product
@@ -83,16 +85,16 @@ import {Additems} from '../Redux/actions/actions'
         </Row>
         <Row>
           <Card>
-            <Row type='flex' jusify='center'align='middle' >
+            <Row type='flex' jusify='center' align='middle' >
               <Col span={10}>
-                <Card bordered={false} cover={<img alt={product.name} src={product.product_image} style={{height:'70%', width:'70%'}} />} bodyStyle={{ padding: "0" }} />
+                <Card bordered={false} cover={<img alt={product.name} src={product.product_image} style={{ height: '70%', width: '70%' }} />} bodyStyle={{ padding: "0" }} />
               </Col>
               <Col span={14}>
                 <Row type='flex' gutter={[0, 48]}>
                   <Col> <b><h2>{product.name}</h2></b></Col>
                 </Row>
                 <Row type='flex' gutter={[0, 48]}>
-                  <Col> <h2 style={{ color: 'red' }}>{product.price}</h2></Col>
+                  <Col> <h2 style={{ color: 'red' }}>{product.price} {product.currency}</h2></Col>
                 </Row>
                 <Row type='flex' gutter={[0, 48]}>
                   <Col style={{ marginRight: '50px' }}>
@@ -109,7 +111,7 @@ import {Additems} from '../Redux/actions/actions'
                   </Col>
                 </Row>
                 <Row type='flex' justify='start' gutter={[8, 48]}>
-                  <Col ><Button type='danger' icon='shopping-cart' ghost onClick={()=>this.handleAddproduct()}>Add to Cart</Button> </Col>
+                  <Col ><Button type='danger' icon='shopping-cart' ghost onClick={() => this.handleAddproduct()}>Add to Cart</Button> </Col>
                   <Col ><Button type='danger' icon='dollar' >Purchase</Button></Col>
                 </Row>
               </Col>
@@ -120,7 +122,7 @@ import {Additems} from '../Redux/actions/actions'
           <Card >
             <Row type='flex' justify='start' align='middle' gutter={[16]}>
               <Col ><Avatar icon="user" /></Col>
-              <Col><h4>Username</h4></Col>
+              <Col>{this.state.seller.username}</Col>
               <Col><Divider type='vertical' style={{ color: 'black', height: '50px' }} /></Col>
               <Col></Col>
             </Row>
@@ -146,6 +148,6 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = {
-  Additems:Additems
+  Additems: Additems
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Product)
