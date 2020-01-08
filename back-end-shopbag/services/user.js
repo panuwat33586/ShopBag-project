@@ -90,4 +90,17 @@ module.exports = (app, db) => {
             }
         })(req, res, next);
     });
+    app.get('/user-profile',passport.authenticate('jwt', { session: false }),
+        function(req,res){
+            db.user.findOne({
+            attributes:['username','firstname','lastname','birthdate','gender','email','phonenumber','profile_img'],
+            where:{id:req.user.id}
+        })
+        .then(result=>{
+            res.status(201).json(result)
+        })
+        .catch(err=>{
+            res.status(400).json({message:err.message})
+        })
+    })
 }
