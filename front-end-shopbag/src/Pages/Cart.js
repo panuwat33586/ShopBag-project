@@ -2,22 +2,25 @@ import React, { Component } from 'react'
 import { Row, Col, Icon, Table, Button, Avatar } from 'antd'
 import { connect } from 'react-redux'
 import { Deleteitems } from '../Redux/actions/actions'
+import {Purchase} from '../Redux/actions/actions'
+import moment from 'moment';
+import Axios from '../config/axios.setup'
 
 class Cart extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            cart: [],
-            totalprice:'0'
-        }
-    }
-
-    componentDidMount() {
-        this.setState({
-            cart: this.props.cart
-        })
-    }
-
+handlePurchase(){
+    let date=moment().format('Y-MM-DD')
+      Axios.post('/order',{
+          totalprice:this.props.totalprice,
+          orderdate:date,
+          cartitems:this.props.cart
+      })
+      .then(()=>{
+          this.props.Purchase()
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+}
     render() {
         const columns = [
             {
@@ -64,16 +67,15 @@ class Cart extends Component {
                 </Row>
                 <Row>
                     <Col> <Table columns={columns} dataSource={this.props.cart} /></Col>
-                    {console.log(this.state.cart)}
                 </Row>
                 <Row type='flex' justify='end' gutter={[0,48]}>
                     <Col>
-                        <b style={{ fontSize: '30px' }}>Total price : {this.state.totalprice} </b>
+                        <b style={{ fontSize: '30px' }}>Total price :  {this.props.totalprice} </b>
                     </Col>
                 </Row>
                 <Row type='flex' justify='end' gutter={[0,48]}> 
                     <Col>
-                        <Button type='danger' icon='dollar' >Purchase</Button>
+                        <Button type='danger' icon='dollar' onClick={()=>this.handlePurchase()} >Purchase</Button>
                     </Col>
                 </Row>
             </>
@@ -83,11 +85,12 @@ class Cart extends Component {
 const mapStateToProps = (state) => {
     return {
         cart: state.cart.cartItems,
-        total: state.cart.total
+        totalprice: state.cart.totalprice
     }
 }
 const mapDispatchToProps = {
-    Deleteitems: Deleteitems
+    Deleteitems: Deleteitems,
+    Purchase:Purchase
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
 

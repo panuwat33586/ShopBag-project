@@ -5,21 +5,27 @@ export const LOGOUT_USER = 'LOGOUT_USER'
 
 export const ADD_ITEMS='ADD_ITEMS'
 export const DELETE_ITEMS='DELETE_ITEMS'
+export const PURCHASE='PURCHASE'
 
 export function Additems(items,quantity){
-    return{
-        type:ADD_ITEMS,
-        items:{...items,quantity:quantity},
-    }
+  return{
+    type:ADD_ITEMS,
+    items:{...items,quantity:quantity},
+  }
 }
 
 export function Deleteitems(productid){
-    return{
-        type:DELETE_ITEMS,
-        productid:productid
-    }
+  return{
+    type:DELETE_ITEMS,
+    productid:productid
+  }
 }
 
+export function Purchase(){
+  return{
+    type:PURCHASE
+  }
+}
 export function logoutUser() {
     localStorage.removeItem(TOKEN)
     return {
