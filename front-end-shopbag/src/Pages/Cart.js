@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Icon, Table, Button, Avatar } from 'antd'
+import { Row, Col, Icon, Table, Button, Avatar,notification } from 'antd'
 import { connect } from 'react-redux'
 import { Deleteitems } from '../Redux/actions/actions'
 import {Purchase} from '../Redux/actions/actions'
@@ -14,8 +14,14 @@ handlePurchase(){
           orderdate:date,
           cartitems:this.props.cart
       })
-      .then(()=>{
-          this.props.Purchase()
+      .then((response)=>{
+          this.props.Purchase();
+          notification['success']({
+            message: 'Success',
+            description:
+              response.data.message
+          });
+
       })
       .catch(err=>{
           console.log(err)

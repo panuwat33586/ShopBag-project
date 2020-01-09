@@ -27,7 +27,7 @@ module.exports = (app, db) => {
                     catch(error){
                         res.status(400).json({message:'Cannot insert'})
                      }
-                     res.status(200).json('Add success')
+                     res.status(200).json({message:'Purchase Completed'})
                 })
                 .catch(err => {
                     res.status(400).json({ message: err.message })
@@ -50,5 +50,20 @@ module.exports = (app, db) => {
             })
           }
     
+    )
+   
+    app.put('/cancleorder/:orderid',passport.authenticate('jwt', { session: false }),
+    function(req,res){
+        db.order.update(
+            {status:'Cancled'},
+           {where:{id:req.params.orderid,user_id:req.user.id}} 
+        )
+        .then(result=>{
+            res.status(200).json('completed status')
+        })
+        .catch(err=>{
+            res.status(400).json({messgae:err.message})
+        })
+    }
     )
 }

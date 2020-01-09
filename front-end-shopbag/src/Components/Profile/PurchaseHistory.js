@@ -10,11 +10,26 @@ export default class PurchaseHistory extends Component {
         }
     }
     componentDidMount(){
+        this.fetchOrderList()
+    }
+    handleCancleOrder(orderid){
+        Axios.put(`/cancleorder/${orderid}`)
+        .then(()=>{
+            this.fetchOrderList()
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+    fetchOrderList(){
         Axios.get('/order')
         .then(response=>{
             this.setState({
                 order:response.data
-            },()=>console.log(this.state.order))
+            })
+        })
+        .catch(err=>{
+            console.log(err)
         })
     }
     render() {
@@ -53,7 +68,7 @@ export default class PurchaseHistory extends Component {
             title: 'Action',
             dataIndex: 'id',
             key: 'x',
-            render: () => <Button type='danger'>Cancle</Button>,
+            render: (orderid) => <Button type='danger'disabled={this.state.order.find(order=>order.id===orderid).status==='Cancled'?true:false} onClick={()=>this.handleCancleOrder(orderid)}>Cancle</Button>,
           },
     ]
         return (
